@@ -6,10 +6,14 @@ using TMPro;
 public class Hit : MonoBehaviour
 {
     public Animator anim;
-    public float stayTime = 100.0f;
+    public float stayTime = 5.0f;
+    public int socre = 0;
+    private bool hit = false;
     public void OnHit()
     {
-        GameManager.intScore += 10;
+        hit = true;
+        GameManager.intScore += socre;
+        Debug.Log("hit");
         GameManager.gameManager.textScore.text = string.Format("{0}", GameManager.intScore);
         anim.SetTrigger("Down");
         StartCoroutine("Disable");
@@ -23,14 +27,18 @@ public class Hit : MonoBehaviour
     IEnumerator StayTime()
     {
         yield return new WaitForSeconds(stayTime);
-        anim.SetTrigger("Down");
-        StartCoroutine("Disable");
+        if(hit == false)
+        {
+            anim.SetTrigger("Down");
+            StartCoroutine("Disable");
+        }
     }
     IEnumerator Disable()
     {
         yield return new WaitForSeconds(1.0f);
         GameManager.totMob -= 1;
-        this.gameObject.SetActive(false);
+        Debug.Log(GameManager.totMob);
+        Destroy(this.gameObject);
         
     }
 }
