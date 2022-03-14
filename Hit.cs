@@ -11,12 +11,14 @@ public class Hit : MonoBehaviour
     private bool hit = false;
     public void OnHit()
     {
-        hit = true;
+        if(hit == true)
+            return;
         GameManager.intScore += socre;
         Debug.Log("hit");
         GameManager.gameManager.textScore.text = string.Format("{0}", GameManager.intScore);
         anim.SetTrigger("Down");
         StartCoroutine("Disable");
+        hit = true;
     }
     void OnEnable()
     {
