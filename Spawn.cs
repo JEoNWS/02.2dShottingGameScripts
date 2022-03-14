@@ -8,6 +8,7 @@ public class Spawn : MonoBehaviour
     Transform[] points;
     int index;
     private GameObject[] mobs = new GameObject[3];
+    public bool gameover;
     void Awake()
     {
         points = GetComponentsInChildren<Transform>();
@@ -15,6 +16,7 @@ public class Spawn : MonoBehaviour
     }
     void Start()
     {
+        gameover = false;
         /*for(int i = 1; i < points.Length; i++)
         {
             points[i].gameObject.SetActive(false);
@@ -24,7 +26,7 @@ public class Spawn : MonoBehaviour
 
     IEnumerator SpawnMob()
     { 
-        while(true)   
+        while(gameover == false)   
         {
             if(GameManager.totMob < 9)
             {
@@ -41,5 +43,9 @@ public class Spawn : MonoBehaviour
             spawnTime = Random.Range(1.0f, 2.5f);
             yield return new WaitForSeconds(spawnTime);
         }
+    }
+    public void StopPlay()
+    {
+        gameover = true;
     }
 }

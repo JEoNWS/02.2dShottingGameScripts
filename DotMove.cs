@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class DotMove : MonoBehaviour
 {
+    public bool gameover;
     public float moveSpeed = 100.0f;
     Vector3 transPos = new Vector3(0, 0, 0);
 
+    void Start()
+    {
+        gameover = false;
+    }
     void Update()
     {
-        DotMovement();
+        if(gameover == false)
+            DotMovement();
     }
     void DotMovement()
     {
@@ -20,7 +26,10 @@ public class DotMove : MonoBehaviour
         
         transform.Translate(transPos * Time.deltaTime, Space.World);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -18.5f, 18.5f), Mathf.Clamp(transform.position.y, -28.5f, 28.5f), 89); 
-
+    }
+    public void StopPlay()
+    {
+        gameover = true;
     }
 
 }
