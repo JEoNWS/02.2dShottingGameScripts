@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
                 currentState = gameState.GameOver;
         }
     }
-    public async void IsHighScore()
+    public void IsHighScore()
     {
         for(int i = 0; i < scores.Length; i++)
         {
