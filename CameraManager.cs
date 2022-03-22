@@ -13,7 +13,7 @@ public class CameraManager : MonoBehaviour
     public static bool currentZoomed = false;
     void Update()
     {
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetMouseButtonDown(1) && GameManager.currentState != GameManager.gameState.GameOver)
             OnMouseClick();
     }
     void OnMouseClick()
