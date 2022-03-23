@@ -17,8 +17,7 @@ public class GetScores : MonoBehaviour
         names = namePannel.GetComponentsInChildren<Text>();
         for(int i = 0; i < 10; i++)
         {
-            Debug.Log(scores.Length);
-            scores[i].text = PlayerPrefs.GetInt($"Score{i}", 0).ToString();
+            scores[i].text = PlayerPrefs.GetInt($"Score{i}").ToString();
             names[i].text = PlayerPrefs.GetString(i.ToString(), "--");
         }
     }

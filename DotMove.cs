@@ -5,7 +5,7 @@ using UnityEngine;
 public class DotMove : MonoBehaviour
 {
     public bool gameover;
-    public float moveSpeed = 100.0f;
+    public float moveSpeed = 300.0f;
     Vector3 transPos = new Vector3(0, 0, 0);
 
     void Start()

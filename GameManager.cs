@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,21 +36,21 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        playSceneCanvus.gameObject.SetActive(true);
+        //playSceneCanvus.gameObject.SetActive(true);
         currentState = gameState.Play;
         intScore = 0;
-        leftTime = 10;
+        leftTime = 5;
         StartCoroutine(StartGame());
     }
     void Update()
     {
-        if(currentState == gameState.GameOver)
+        /*if(currentState == gameState.GameOver)
         {
             gameOver.Invoke();
             gameoverUI.SetActive(true);
             IsHighScore();
             currentState = gameState.IDLE;
-        }
+        }*/
 
     }
     IEnumerator StartGame()
@@ -61,14 +62,24 @@ public class GameManager : MonoBehaviour
             leftTime -= 1;
             textTimer.text = leftTime.ToString();
             if(leftTime <= 0)
-                currentState = gameState.GameOver;
+                {
+                    currentState = gameState.GameOver;
+                    gameOver.Invoke();
+                    gameoverUI.SetActive(true);
+                    IsHighScore();
+                    currentState = gameState.IDLE;
+                }
         }
     }
     public void IsHighScore()
     {
         for(int i = 0; i < scores.Length; i++)
         {
-            scores[i] = PlayerPrefs.GetInt($"Score{i}", 0);
+            scores[i] = PlayerPrefs.GetInt($"Score{i}");
+
+        }
+        for(int i = 0; i < scores.Length; i++)
+        {
             if(intScore > scores[i])
             {
                 ranking = i;
@@ -79,12 +90,11 @@ public class GameManager : MonoBehaviour
                 }
                 scores[i] = intScore;
                 enterName.gameObject.SetActive(true);
-                break;
+                SetPlayerPrefs();
+                return;
             }
         }
-        playSceneCanvus.gameObject.SetActive(false);
-        SetPlayerPrefs();
-        Debug.Log("SEt");
+        StartCoroutine("LoadHighScore", LoadSceneMode.Additive);
     }
     private void SetPlayerPrefs()
     {
@@ -96,5 +106,10 @@ public class GameManager : MonoBehaviour
     public void SetPlayerName()
     {
         PlayerPrefs.SetString(ranking.ToString(), enterName.text);
+    }
+    IEnumerator LoadHighScore()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("HighScore", LoadSceneMode.Additive);
     }
 }
