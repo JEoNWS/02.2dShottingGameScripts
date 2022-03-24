@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public static int totMob;
     public static GameManager gameManager = null;
     public GameObject gameoverUI;
+    public GameObject bulletUI;
     public Canvas playSceneCanvus;
     public InputField enterName;
     public TMP_Text textScore;
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
         //playSceneCanvus.gameObject.SetActive(true);
         currentState = gameState.Play;
         intScore = 0;
-        leftTime = 5;
+        leftTime = 30;
         StartCoroutine(StartGame());
     }
     void Update()
@@ -66,6 +67,7 @@ public class GameManager : MonoBehaviour
                     currentState = gameState.GameOver;
                     gameOver.Invoke();
                     gameoverUI.SetActive(true);
+                    bulletUI.SetActive(false);
                     IsHighScore();
                     currentState = gameState.IDLE;
                 }

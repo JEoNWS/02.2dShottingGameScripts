@@ -25,7 +25,7 @@ public class DotMove : MonoBehaviour
         transPos.y = posY * moveSpeed;
         
         transform.Translate(transPos * Time.deltaTime, Space.World);
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -18.5f, 18.5f), Mathf.Clamp(transform.position.y, -28.5f, 28.5f), 89); 
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -18.5f, 18.5f), Mathf.Clamp(transform.position.y, -28.5f, 28.5f), 88); 
     }
     public void StopPlay()
     {
